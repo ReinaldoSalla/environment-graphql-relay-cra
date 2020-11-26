@@ -7,6 +7,7 @@ var schema = buildSchema(`
   type Query {
     bitcoin: String
     ethereum: String
+    rollDice(numDice: Int!, numSides: Int): [Int]
   }
 `);
 
@@ -16,6 +17,11 @@ var root = {
   },
   ethereum: () => {
     return '(25/11/2020-15h57m) the current value for ethereum is $588,95';
+  },
+  rollDice: ({ numDice, numSides }) => {
+    return Array(numDice).fill(0).map((_) => {
+      return (1 + Math.floor(Math.random() * (numSides || 6)));
+    })
   }
 };
 
