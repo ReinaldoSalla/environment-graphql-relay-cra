@@ -1,0 +1,1 @@
+https://stackoverflow.com/questions/56464529/graphql-query-and-mutate-in-one-network-call
