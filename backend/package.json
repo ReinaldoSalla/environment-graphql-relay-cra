@@ -4,20 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node -r ts-node/register ./src/app.ts",
-    "build": "node_modules/.bin/tsc"
+    "start": "nodemon"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "cors": "2.8.5",
-    "express": "4.17.1",
-    "express-graphql": "0.12.0",
-    "graphql": "15.4.0"
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "esm": "^3.2.25",
+    "express": "^4.17.1"
   },
   "devDependencies": {
-    "@types/node": "14.14.9",
-    "ts-node": "9.0.0",
-    "typescript": "4.1.2"
+    "nodemon": "^2.0.3"
   }
 }
