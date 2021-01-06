@@ -1,111 +1,113 @@
-var express = require('express');
-var { graphqlHTTP } = require('express-graphql');
-var { buildSchema } = require('graphql');
-var cors = require('cors');
- 
+/**
+ * Links
+ * social with passport-jwt https://www.sitepoint.com/spa-social-login-google-facebook/
+ * 
+ * chore
+ * proper ts config
+ * proper eslint config
+ * delete mongo urls in github tarefa
+ */
+// import express, { Request, Response, NextFunction } from 'express';
+// import { graphqlHTTP } from 'express-graphql';
+// import { buildSchema } from 'graphql';
+// import cors from 'cors';
+
+// const loggingMiddleware = (
+//   req: Request, 
+//   res: Response, 
+//   next: NextFunction
+// ): void => {
+//   console.log(`req = ${req}`);
+//   next();
+// };
+
 // var schema = buildSchema(`
+//   input MessageInput {
+//     content: String
+//     author: String
+//   }
+ 
+//   type Message {
+//     id: ID!
+//     content: String
+//     author: String
+//   }
+  
 //   type Query {
-//     bitcoin: String
-//     ethereum: String
-//     rollDice(numDice: Int!, numSides: Int): [Int]
+//     getMessage(id: ID!): Message
+//     getFixedMessage: String
+//     ip: String
+//   }
+ 
+//   type Mutation {
+//     createMessage(input: MessageInput): Message
+//     updateMessage(id: ID!, input: MessageInput): Message
 //   }
 // `);
+ 
+// // If Message had any complex fields, we'd put them on this object.
+// class Message {
+//   id: string;
+//   content: string;
+//   author: string;
+//   constructor(id: any, {content, author}: any) {
+//     this.id = id;
+//     this.content = content;
+//     this.author = author;
+//   }
+// }
 
+// // Maps username to content
+// var fakeDatabase: any = {};
+// let id = 0;
+
+ 
 // var root = {
-//   bitcoin: () => {
-//     return '(25/11/2020-14h57m) the current value for bitcoin $19,023.20';
+//   getMessage: ({id}: any) => {
+//     if (!fakeDatabase[id]) {
+//       throw new Error('no message exists with id ' + id);
+//     }
+//     return new Message(id, fakeDatabase[id]);
 //   },
-//   ethereum: () => {
-//     return '(25/11/2020-15h57m) the current value for ethereum is $588,95';
+//   getFixedMsg: () => 'text for fixed msg',
+//   createMessage: ({input}: any) => {
+//     // Create a random id for our "database".
+//     id++; 
+//     fakeDatabase[id] = input;
+//     return new Message(id, input);
 //   },
-//   rollDice: ({ numDice, numSides }) => {
-//     return Array(numDice).fill(0).map((_) => {
-//       return (1 + Math.floor(Math.random() * (numSides || 6)));
-//     })
+//   updateMessage: ({id, input}: any) => {
+//     if (!fakeDatabase[id]) {
+//       throw new Error('no message exists with id ' + id);
+//     }
+//     // This replaces all old data, but some apps might want partial update.
+//     fakeDatabase[id] = input;
+//     return new Message(id, input);
+//   },
+//   id: (args: any, request: Request) => {
+//     return request.ip
 //   }
 // };
 
-var schema = buildSchema(`
-  input MessageInput {
-    content: String
-    author: String
-  }
- 
-  type Message {
-    id: ID!
-    content: String
-    author: String
-  }
- 
-  type Query {
-    getMessage(id: ID!): Message
-    getFixedMessage: String
-  }
- 
-  type Mutation {
-    createMessage(input: MessageInput): Message
-    updateMessage(id: ID!, input: MessageInput): Message
-  }
-`);
- 
-// If Message had any complex fields, we'd put them on this object.
-class Message {
-  id: string;
-  content: string;
-  author: string;
-  constructor(id, {content, author}) {
-    this.id = id;
-    this.content = content;
-    this.author = author;
-  }
-}
- 
-// Maps username to content
-var fakeDatabase = {};
-let id = 0;
- 
-var root = {
-  getMessage: ({id}) => {
-    if (!fakeDatabase[id]) {
-      throw new Error('no message exists with id ' + id);
-    }
-    return new Message(id, fakeDatabase[id]);
-  },
-  getFixedMsg: () => 'text for fixed msg',
-  createMessage: ({input}) => {
-    // Create a random id for our "database".
-    id++; 
-    fakeDatabase[id] = input;
-    return new Message(id, input);
-  },
-  updateMessage: ({id, input}) => {
-    if (!fakeDatabase[id]) {
-      throw new Error('no message exists with id ' + id);
-    }
-    // This replaces all old data, but some apps might want partial update.
-    fakeDatabase[id] = input;
-    return new Message(id, input);
-  },
-};
+// var app = express();
+// app.use(cors());
+// app.use(loggingMiddleware);
+// app.use('/graphql', graphqlHTTP({
+//   schema: schema,
+//   rootValue: root,
+//   graphiql: true,
+// }));
+// app.listen(3001);
+// console.log('Running a GraphQL API server at http://localhost:3001/graphql');
 
 
-var app = express();
-app.use(cors());
-app.use('/graphql', graphqlHTTP({
-  schema: schema,
-  rootValue: root,
-  graphiql: true,
-}));
-app.listen(4000);
-console.log('Running a GraphQL API server at http://localhost:4000/graphql');
-
-/*
-mutation {
-  createMessage(input: {
-    author: "andy",
-    content: "hope is a good thing",
-  }) {
-    id
-  }
-}
-*/
+import express from 'express';
+import path from 'path';
+import favicon from 'serve-favicon';
+import logger from 'morgan';
+import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
+import swig from 'swig';
+import passport from 'passport';
+import session from 'express-session';
+import mongoose from 'mongoose';
