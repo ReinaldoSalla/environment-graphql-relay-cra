@@ -111,3 +111,5 @@ import swig from 'swig';
 import passport from 'passport';
 import session from 'express-session';
 import mongoose from 'mongoose';
+import router from './routes';
+
